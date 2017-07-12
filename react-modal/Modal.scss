@@ -1,0 +1,43 @@
+@import "../../../assets/scss/variables";
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_modals';
+
+.modal-content {
+  border-radius: 3px;
+  box-shadow: 0 0 15px 0 rgba(154,154,154,0.5);
+}
+
+.modal-header {
+  display: table;
+  width: 100%;
+  border: none;
+
+  > * {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .btn-wrapper {
+    text-align: right;
+
+    button {
+      padding: 5px 10px;
+
+      i {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.modal-footer {
+  border: none;
+}
+
+.modal-backdrop {
+  background-color: rgba(255, 255, 255, 0.85);
+
+  &.in {
+    opacity: 1;
+  }
+}
