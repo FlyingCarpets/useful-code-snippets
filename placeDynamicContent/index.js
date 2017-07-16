@@ -1,9 +1,9 @@
 class Dogs {
     constructor() {
-        this.sayHello();
+        this.fetchData();
         this.dogBreeds = [];
     }
-    sayHello() {
+    fetchData() {
         $.ajax({
             url: "http://beta.json-generator.com/api/json/get/4yl0BB4HQ",
             type: 'GET'
@@ -33,6 +33,8 @@ class Dogs {
         // });
     }
     placeContent() {
+        document.getElementById("js-content").innerHTML = '';
+
         this.dogBreeds.map((breed) => {
             const template =
                 `
@@ -55,7 +57,7 @@ class Dogs {
                     </div>
                 </div>        
                 `;
-            
+
             $('#js-content').append(template);
 
             // VANILLA JS
@@ -64,6 +66,33 @@ class Dogs {
             // newElement.appendChild(textToInsert);
             // document.getElementById('js-content').appendChild(newElement);
         });
+
+        this.bindFilterActions();
+    }
+    bindFilterActions() {
+        this.allFilterLinks.map((filterLink) => {
+            filterLink.addEventListener('click', () => {
+                this.filterResults(filterLink);
+            })
+        });
+    }
+    filterResults(filterLink) {
+        const filterName = filterLink.getAttribute('data-name');
+        const filterAttribute = filterLink.getAttribute('data-filter');
+        const allDogBreeds = this.dogBreeds;
+
+        this.dogBreeds = [];
+
+        allDogBreeds.filter((item) => {
+            if(item[filterName] == filterAttribute) {
+                this.dogBreeds.push(item);
+            }
+        });
+
+        this.placeContent();
+    }
+    get allFilterLinks() {
+        return Array.from(document.querySelectorAll('.js-filter'));
     }
 }
 
